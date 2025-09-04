@@ -56,12 +56,12 @@
             <div class="card-role">AI ENGINEER • OPEN SOURCE</div>
             <div class="card-stats">
               <div class="stat-item">
-                <span class="stat-value" data-target="50">00</span>
-                <span class="stat-label">AI MODELS</span>
+                <span class="stat-value" data-counter="repos" aria-live="polite">0</span>
+                <span class="stat-label">REPOS</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value" data-target="100">00</span>
-                <span class="stat-label">REPOS</span>
+                <span class="stat-value" data-counter="stars" aria-live="polite">0</span>
+                <span class="stat-label">STARS</span>
               </div>
             </div>
           </div>
@@ -142,6 +142,10 @@
                 <span>VIEW_ID_CARD</span>
                 <i class="bi bi-credit-card"></i>
               </button>
+              <a class="cyber-btn secondary" href="mailto:akhshy.ganesh@gmail.com" aria-label="Contact Akhshy via email">
+                <span>CONTACT_ME</span>
+                <i class="bi bi-envelope"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -196,16 +200,16 @@
                 <div class="system-stats">
                   <div class="stat-grid">
                     <div class="stat-cell">
-                      <div class="stat-value" data-target="50">00</div>
-                      <div class="stat-unit">AI_MODELS</div>
+                      <div class="stat-value" data-counter="repos" aria-live="polite">0</div>
+                      <div class="stat-unit">REPOS</div>
                     </div>
                     <div class="stat-cell">
-                      <div class="stat-value" data-target="100">00</div>
-                      <div class="stat-unit">REPOSITORIES</div>
+                      <div class="stat-value" data-counter="stars" aria-live="polite">0</div>
+                      <div class="stat-unit">TOTAL_STARS</div>
                     </div>
                     <div class="stat-cell">
-                      <div class="stat-value" data-target="25">00</div>
-                      <div class="stat-unit">APIS_BUILT</div>
+                      <div class="stat-value" data-counter="followers" aria-live="polite">0</div>
+                      <div class="stat-unit">FOLLOWERS</div>
                     </div>
                   </div>
                 </div>
@@ -217,210 +221,6 @@
     </div>
   </section>
 
-  <!-- AI Laboratory -->
-  <section id="ai-lab" class="ai-laboratory">
-    <div class="lab-background">
-      <canvas id="lab-particles"></canvas>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="lab-header">
-            <h2 class="lab-title">
-              <span class="title-prefix">[</span>
-              <span class="title-main">AI_LABORATORY</span>
-              <span class="title-suffix">]</span>
-            </h2>
-            <div class="lab-subtitle">Projects, prototypes, and production systems I enjoyed building</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="lab-deck-container">
-        <div class="deck-wrapper">
-          <!-- Machine Learning Card -->
-          <div class="lab-card" data-type="ml">
-            <div class="card-hologram"></div>
-            <div class="card-inner">
-              <div class="card-header">
-                <div class="card-icon-container">
-                  <i class="bi bi-brain"></i>
-                </div>
-                <h3 class="card-title">MACHINE_LEARNING</h3>
-              </div>
-              <div class="card-body">
-                <div class="neural-pattern" id="ml-pattern"></div>
-                <div class="card-description">
-                  Practical ML for real products — from fast baselines to tuned models that move metrics
-                </div>
-                <div class="tech-matrix">
-                  <span class="tech-node">PyTorch</span>
-                  <span class="tech-node">TensorFlow</span>
-                  <span class="tech-node">Scikit-learn</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="activation-level">
-                  <span class="level-indicator"></span>
-                  <span class="level-text">EXPERT_LEVEL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Deep Learning Card -->
-          <div class="lab-card" data-type="dl">
-            <div class="card-hologram"></div>
-            <div class="card-inner">
-              <div class="card-header">
-                <div class="card-icon-container">
-                  <i class="bi bi-layers"></i>
-                </div>
-                <h3 class="card-title">DEEP_LEARNING</h3>
-              </div>
-              <div class="card-body">
-                <div class="neural-pattern" id="dl-pattern"></div>
-                <div class="card-description">
-                  Modern deep learning with a bias for clarity and speed: CNNs, RNNs, and Transformers
-                </div>
-                <div class="tech-matrix">
-                  <span class="tech-node">CNNs</span>
-                  <span class="tech-node">RNNs</span>
-                  <span class="tech-node">Transformers</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="activation-level">
-                  <span class="level-indicator"></span>
-                  <span class="level-text">EXPERT_LEVEL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- NLP & LLMs Card -->
-          <div class="lab-card" data-type="nlp">
-            <div class="card-hologram"></div>
-            <div class="card-inner">
-              <div class="card-header">
-                <div class="card-icon-container">
-                  <i class="bi bi-chat-square-text"></i>
-                </div>
-                <h3 class="card-title">NLP_&_LLMs</h3>
-              </div>
-              <div class="card-body">
-                <div class="neural-pattern" id="nlp-pattern"></div>
-                <div class="card-description">
-                  LLM apps that feel snappy and useful. Prompting, tooling, evals, and safety baked in
-                </div>
-                <div class="tech-matrix">
-                  <span class="tech-node">BERT</span>
-                  <span class="tech-node">GPT</span>
-                  <span class="tech-node">T5</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="activation-level">
-                  <span class="level-indicator"></span>
-                  <span class="level-text">EXPERT_LEVEL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Computer Vision Card -->
-          <div class="lab-card" data-type="cv">
-            <div class="card-hologram"></div>
-            <div class="card-inner">
-              <div class="card-header">
-                <div class="card-icon-container">
-                  <i class="bi bi-eye"></i>
-                </div>
-                <h3 class="card-title">COMPUTER_VISION</h3>
-              </div>
-              <div class="card-body">
-                <div class="neural-pattern" id="cv-pattern"></div>
-                <div class="card-description">
-                  Robust CV for detection, tracking, and understanding — optimized for real-world inputs
-                </div>
-                <div class="tech-matrix">
-                  <span class="tech-node">OpenCV</span>
-                  <span class="tech-node">YOLO</span>
-                  <span class="tech-node">ResNet</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="activation-level">
-                  <span class="level-indicator"></span>
-                  <span class="level-text">EXPERT_LEVEL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MLOps Card -->
-          <div class="lab-card" data-type="mlops">
-            <div class="card-hologram"></div>
-            <div class="card-inner">
-              <div class="card-header">
-                <div class="card-icon-container">
-                  <i class="bi bi-gear-wide-connected"></i>
-                </div>
-                <h3 class="card-title">MLOPS_PIPELINE</h3>
-              </div>
-              <div class="card-body">
-                <div class="neural-pattern" id="mlops-pattern"></div>
-                <div class="card-description">
-                  Shipping ML reliably: containers, orchestration, observability, and CI/CD that sticks
-                </div>
-                <div class="tech-matrix">
-                  <span class="tech-node">Docker</span>
-                  <span class="tech-node">Kubernetes</span>
-                  <span class="tech-node">MLflow</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="activation-level">
-                  <span class="level-indicator"></span>
-                  <span class="level-text">EXPERT_LEVEL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- API Wrappers Card -->
-          <div class="lab-card">
-            <div class="card-hologram"></div>
-            <div class="card-inner">
-              <div class="card-header">
-                <div class="card-icon-container">
-                  <i class="bi bi-layers"></i>
-                </div>
-                <h3 class="card-title">API_WRAPPERS</h3>
-              </div>
-              <div class="card-body">
-                <div class="neural-pattern" id="api-pattern"></div>
-                <div class="card-description">
-                  Clean SDKs and wrappers over complex AI services so developers only write the fun parts
-                </div>
-                <div class="tech-matrix">
-                  <span class="tech-node">REST APIs</span>
-                  <span class="tech-node">GraphQL</span>
-                  <span class="tech-node">SDK Development</span>
-                </div>
-              </div>
-              <div class="card-footer">
-                <div class="activation-level">
-                  <span class="level-indicator"></span>
-                  <span class="level-text">ADVANCED_LEVEL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
   <!-- Focus Areas (Consistent Section) -->
   <section id="focus" class="ai-laboratory">
     <div class="container">
@@ -507,7 +307,7 @@
                 <div class="card-icon-container">
                   <i class="bi bi-cloud-arrow-up"></i>
                 </div>
-                <h3 class="card-title">MLOPS_&_INFRASTRUCTURE</h3>
+                <h3 class="card-title">AI INFRASTRUCTURE</h3>
               </div>
               <div class="card-body">
                 <div class="neural-pattern"></div>
@@ -772,14 +572,14 @@
       
       <!-- Additional Metrics -->
       <div class="row">
-        <div class="col-lg-3 mb-4">
+    <div class="col-lg-3 mb-4" data-metric="gists">
           <div class="metric-card">
             <div class="metric-icon">
               <i class="bi bi-cpu"></i>
             </div>
             <div class="metric-content">
-              <div class="metric-value" data-target="50">00</div>
-              <div class="metric-label">AI_MODELS</div>
+      <div class="metric-value">0</div>
+      <div class="metric-label">PUBLIC_GISTS</div>
             </div>
             <div class="metric-graph">
               <canvas class="mini-chart" data-type="line"></canvas>
@@ -787,13 +587,13 @@
           </div>
         </div>
         
-        <div class="col-lg-3 mb-4">
+    <div class="col-lg-3 mb-4" data-metric="repositories">
           <div class="metric-card">
             <div class="metric-icon">
               <i class="bi bi-github"></i>
             </div>
             <div class="metric-content">
-              <div class="metric-value" data-target="100">00</div>
+      <div class="metric-value">0</div>
               <div class="metric-label">REPOSITORIES</div>
             </div>
             <div class="metric-graph">
@@ -802,13 +602,13 @@
           </div>
         </div>
         
-        <div class="col-lg-3 mb-4">
+    <div class="col-lg-3 mb-4" data-metric="stars">
           <div class="metric-card">
             <div class="metric-icon">
               <i class="bi bi-star"></i>
             </div>
             <div class="metric-content">
-              <div class="metric-value" data-target="250">000</div>
+      <div class="metric-value">0</div>
               <div class="metric-label">TOTAL_STARS</div>
             </div>
             <div class="metric-graph">
@@ -817,13 +617,13 @@
           </div>
         </div>
         
-        <div class="col-lg-3 mb-4">
+    <div class="col-lg-3 mb-4" data-metric="followers">
           <div class="metric-card">
             <div class="metric-icon">
               <i class="bi bi-people"></i>
             </div>
             <div class="metric-content">
-              <div class="metric-value" data-target="75">00</div>
+      <div class="metric-value">0</div>
               <div class="metric-label">FOLLOWERS</div>
             </div>
             <div class="metric-graph">

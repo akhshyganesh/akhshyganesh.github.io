@@ -860,16 +860,21 @@
   // =============================================
   const GitHubStats = {
     async init() {
-      await this.fetchStats();
-      this.displayStats();
+  await this.fetchStats();
+  this.displayStats();
+  this.injectFeatured();
     },
 
     async fetchStats() {
       try {
-        const response = await fetch(`https://api.github.com/users/${CONFIG.github.username}`);
+        const response = await fetch(`https://api.github.com/users/${CONFIG.github.username}`, {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
         const userData = await response.json();
         
-        const reposResponse = await fetch(`https://api.github.com/users/${CONFIG.github.username}/repos?sort=updated&per_page=100`);
+        const reposResponse = await fetch(`https://api.github.com/users/${CONFIG.github.username}/repos?sort=updated&per_page=100`, {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
         const reposData = await reposResponse.json();
         
         CONFIG.github.userData = userData;
@@ -882,30 +887,88 @@
       }
     },
 
-    displayStats() {
+  displayStats() {
       if (!CONFIG.github.userData) return;
 
       const stats = {
         repos: CONFIG.github.userData.public_repos,
         followers: CONFIG.github.userData.followers,
         following: CONFIG.github.userData.following,
-        stars: CONFIG.github.repos.reduce((total, repo) => total + repo.stargazers_count, 0)
+  stars: CONFIG.github.repos.reduce((total, repo) => total + repo.stargazers_count, 0),
+  gists: CONFIG.github.userData.public_gists
       };
 
       // Update metric cards
-      this.updateMetric('repositories', stats.repos);
-      this.updateMetric('stars', stats.stars);
-      this.updateMetric('followers', stats.followers);
-      this.updateMetric('commits', '500+'); // Placeholder
+  this.updateMetric('repositories', stats.repos);
+  this.updateMetric('stars', stats.stars);
+  this.updateMetric('followers', stats.followers);
+  this.updateMetric('gists', stats.gists);
+
+      // Update hero/bio counters
+      document.querySelectorAll('[data-counter="repos"]').forEach(el => this.animateNumber(el, stats.repos));
+      document.querySelectorAll('[data-counter="stars"]').forEach(el => this.animateNumber(el, stats.stars));
+      document.querySelectorAll('[data-counter="followers"]').forEach(el => this.animateNumber(el, stats.followers));
     },
 
     updateMetric(type, value) {
       const element = document.querySelector(`[data-metric="${type}"] .metric-value`);
       if (element) {
-        element.textContent = typeof value === 'number' ? value.toLocaleString() : value;
+        this.animateNumber(element, value);
       }
+    },
+
+    animateNumber(el, target, duration = 800) {
+      const startVal = parseInt((el.textContent || '0').replace(/[^0-9]/g, ''), 10) || 0;
+      const endVal = typeof target === 'number' ? target : parseInt(String(target).replace(/[^0-9]/g, ''), 10) || 0;
+      if (endVal === startVal) { el.textContent = endVal.toLocaleString(); return; }
+      const startTime = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - startTime) / duration);
+        const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+        const val = Math.round(startVal + (endVal - startVal) * eased);
+        el.textContent = val.toLocaleString();
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
     }
   };
+
+  // =============================================
+  // Featured Repos Injection
+  // =============================================
+  Object.assign(GitHubStats, {
+    pickFeatured(repos) {
+      if (!Array.isArray(repos)) return [];
+      // Score repos: stars desc, recent activity boost, exclude forks
+      const scored = repos
+        .filter(r => !r.fork && !r.private)
+        .map(r => {
+          const updated = new Date(r.pushed_at || r.updated_at || r.created_at).getTime();
+          const recencyBoost = (Date.now() - updated) < 1000*60*60*24*90 ? 50 : 0; // 90 days
+          const langBoost = (r.language === 'Python' || r.language === 'JavaScript') ? 10 : 0;
+          const topicsBoost = (Array.isArray(r.topics) && r.topics.some(t => /ai|ml|llm|nlp|cv|sdk|api/i.test(t))) ? 20 : 0;
+          const score = (r.stargazers_count || 0) * 2 + recencyBoost + langBoost + topicsBoost;
+          return { repo: r, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6)
+        .map(s => s.repo);
+      return scored;
+    },
+
+    injectFeatured() {
+      const mount = document.getElementById('featured-repos');
+      if (!mount) return;
+      const featured = this.pickFeatured(CONFIG.github.repos);
+      if (!featured.length) {
+        mount.innerHTML = '<p class="text-center text-muted">No repositories found. Try again later.</p>';
+        return;
+      }
+
+      mount.innerHTML = featured.map(r => this.renderRepoCard(r)).join('');
+    },
+
+  });
 
   // =============================================
   // Command Palette
@@ -919,10 +982,9 @@
       if (!this.modal || !this.input || !this.results) return;
 
       this.commands = [
-  { name: 'AI Laboratory', icon: 'bi bi-brain', action: () => this.scrollTo('#ai-lab') },
-  { name: 'Expertise Network', icon: 'bi bi-diagram-3', action: () => this.scrollTo('#skills') },
-  { name: 'Analytics Dashboard', icon: 'bi bi-graph-up', action: () => this.scrollTo('#stats') },
-  { name: 'System Biography', icon: 'bi bi-terminal', action: () => this.scrollTo('#about') },
+        { name: 'Expertise Network', icon: 'bi bi-diagram-3', action: () => this.scrollTo('#skills') },
+        { name: 'Analytics Dashboard', icon: 'bi bi-graph-up', action: () => this.scrollTo('#stats') },
+        { name: 'System Biography', icon: 'bi bi-terminal', action: () => this.scrollTo('#about') },
         { name: 'Toggle ID Card', icon: 'bi bi-person-badge', action: () => FloatingCard.toggle() },
         { name: 'Initialize Particles', icon: 'bi bi-stars', action: () => ParticleSystem.init() }
       ];
@@ -1291,9 +1353,13 @@
   // =============================================
   const AILabShine = {
     init() {
-      const lab = document.getElementById('ai-lab');
-      if (!lab) return;
-      const cards = lab.querySelectorAll('.lab-card');
+      const scopes = ['#ai-lab', '#featured'];
+      let cards = [];
+      scopes.forEach(sel => {
+        const root = document.querySelector(sel);
+        if (root) cards = cards.concat(Array.from(root.querySelectorAll('.lab-card')));
+      });
+      if (!cards.length) return;
       cards.forEach(card => this.bind(card));
     },
     bind(card) {
